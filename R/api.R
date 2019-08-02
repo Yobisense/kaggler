@@ -38,9 +38,20 @@ kgl_api_call <- function(path, ...) {
 }
 
 ## for GET requests
-kgl_api_get <- function(path, ..., auth = kgl_auth()) {
+kgl_api_get <- function(path, ..., auth = kgl_auth(), disk_path=NULL) {
   ## build and make request
-  r <- httr::GET(kgl_api_call(path, ...), auth)
+  if(!is.null(disk_path)){
+    if(!file.exists(disk_path)){
+        httr::GET(kgl_api_call(path, ...), auth, httr::write_disk(disk_path))
+    }
+    else{
+        print(paste("File exists, delete the file to download again: ",disk_path))
+    }
+    return()
+  }
+  else{
+    r <- httr::GET(kgl_api_call(path, ...), auth)
+  }
 
   ## check status
   httr::warn_for_status(r)

@@ -48,13 +48,14 @@ kgl_datasets_view <- function(owner_dataset) {
 #' @param datasetVersionNumber string, Dataset version number. Required: FALSE.
 #' @export
 kgl_datasets_download <- function(owner_dataset, fileName,
-                                  datasetVersionNumber = NULL) {
+                                  datasetVersionNumber = NULL, disk_path=NULL) {
   owner_dataset <- strsplit(owner_dataset, "/")[[1]]
   ownerSlug <- owner_dataset[1]
   datasetSlug <- owner_dataset[2]
   kgl_api_get(glue::glue(
     "datasets/download/{ownerSlug}/{datasetSlug}/{fileName}"),
-    datasetVersionNumber = datasetVersionNumber)
+    datasetVersionNumber = datasetVersionNumber,
+    disk_path = disk_path)
 }
 
 #' DatasetsUploadFile
