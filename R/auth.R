@@ -48,8 +48,8 @@ kgl_auth <- function(username = NULL, key = NULL, creds_file = NULL) {
   if (is.null(username) && is.null(key) && is.null(creds_file)) {
     pat <- Sys.getenv("KAGGLE_PAT")
     if (!identical(pat, "")) {
-      username <- sub("[/\\s,;].*", "", pat)
-      key <- sub(".*[/\\s,;]", "", pat)
+      username <- sub("[/\\s,;].*", "", pat, perl=TRUE)
+      key <- sub(".*[/\\s,;]", "", pat, perl=TRUE)
     } else {
       username <- Sys.getenv("KAGGLE_USERNAME")
       key <- Sys.getenv("KAGGLE_KEY")
